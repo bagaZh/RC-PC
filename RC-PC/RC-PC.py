@@ -110,7 +110,7 @@ if is_admin() or iadm==1:
                             \n/update - Откроет ссылку для обновления до актуальной версии
                             \n/altf4 - Исполнит сочетание клавиш alf + f4
                             \n/hidePG - Свернёт все окна
-                            \n/smspam ru/bu number - Скоро...""")
+                            \n/smspam ru/bu number - В разработке...""")
                     except Exception as e:
                         bot.reply_to()
                 else:
@@ -377,9 +377,18 @@ if is_admin() or iadm==1:
                     a.close()
                     if last_ver != current_ver:
                         webbrowser.open("https://github.com/bagaZh/RC-PC")
-                        bot.reply_to(message, 'На компьюторе была открыта ссылка для обновления. Для обновление требуется запустить файл stop-for-update.bat, затем скачать все файлы заного(кроме setup.exe и s-f-u.bat) и запустить RC-PC.exe')
+                        bot.reply_to(message, 'На компьюторе была открыта ссылка для обновления. Для обновление требуется запустить файл stop-for-update.bat или использовать комаду /exit, затем скачать все файлы заного(кроме setup.exe и s-f-u.bat) и запустить RC-PC.exe')
                     else:
                         bot.reply_to(message, f'У вас уже установлена последняя версия ({current_ver})')
+
+                except Exception as e:
+                    bot.reply_to(message, e)
+            @bot.message_handler(commands=['exit'])
+            def exits(message, res=True):
+                try:
+                    bot.reply_to(message, 'Пока пока!')
+                    os.system("taskkill /IM RC-PC.exe")
+                    
 
                 except Exception as e:
                     bot.reply_to(message, e)
