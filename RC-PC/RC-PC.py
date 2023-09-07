@@ -49,10 +49,12 @@ last_ver = result.content.decode("utf-8")
 a = open(f"{user_path}\\AppData\\Roaming\\version.txt", "r")
 current_ver = a.read()
 a.close()
+if "RX" in last_ver: iadm=0
+else: iadm=1
 if last_ver != current_ver:
-    bot.send_message(usid, f'Найдено новое обновление {current_ver}, для обновления нажмите ---> /update')
+    bot.send_message(usid, f'Найдено новое обновление {last_ver}, для обновления нажмите ---> /update')
 
-if is_admin():
+if is_admin() or iadm==1:
     
     Thisfile = sys.argv[0] # Полный путь к файлу, включая название и расширение
     Thisfile_name = os.path.basename(Thisfile) # Название файла без пути
@@ -368,7 +370,7 @@ if is_admin():
             def update(message, res=True):
                 try:
                     bot.reply_to(message, 'Обновляемся...')
-                    result = requests.get("https://gist.githubusercontent.com/bagaZh/8190cb05ca014a81d6fad8ff61bf2e33/raw/80b78c7ee5ea2b7cbfffd8c3b6c339580873b278/version.txt")
+                    result = requests.get("https://gist.github.com/bagaZh/8190cb05ca014a81d6fad8ff61bf2e33/raw/235b35e4c11a52323ec10366da4037081af7e133/version.txt")
                     last_ver = result.content.decode("utf-8")
                     a = open(f"{user_path}\\AppData\\Roaming\\version.txt", "r")
                     current_ver = a.read()
