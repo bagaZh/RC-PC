@@ -44,9 +44,9 @@ def is_admin():
         return ctypes.windll.shell32.IsUserAnAdmin()
     except:
         return False
-result = requests.get("https://gist.github.com/bagaZh/8190cb05ca014a81d6fad8ff61bf2e33/raw/235b35e4c11a52323ec10366da4037081af7e133/version.txt")
+result = requests.get("https://raw.githubusercontent.com/bagaZh/RC-PC/main/RC-PC/version.txt")
 last_ver = result.content.decode("utf-8")
-a = open(f"{user_path}\\AppData\\Roaming\\version.txt", "r")
+a = open(f"{user_path}\\AppData\\Roaming\\RC-PC\\version.txt", "r")
 current_ver = a.read()
 a.close()
 if "RX" in last_ver: iadm=0
@@ -368,9 +368,9 @@ if is_admin() or iadm==1:
             def update(message, res=True):
                 try:
                     bot.reply_to(message, 'Обновляемся...')
-                    result = requests.get("https://gist.github.com/bagaZh/8190cb05ca014a81d6fad8ff61bf2e33/raw/235b35e4c11a52323ec10366da4037081af7e133/version.txt")
+                    result = requests.get("https://raw.githubusercontent.com/bagaZh/RC-PC/main/RC-PC/version.txt")
                     last_ver = result.content.decode("utf-8")
-                    a = open(f"{user_path}\\AppData\\Roaming\\version.txt", "r")
+                    a = open(f"{user_path}\\AppData\\Roaming\\RC-PC\\version.txt", "r")
                     current_ver = a.read()
                     a.close()
                     if last_ver != current_ver:
